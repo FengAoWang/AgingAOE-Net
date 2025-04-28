@@ -1,148 +1,162 @@
-AgingAOE-Net
-AgingAOE-Net is a deep learning framework designed for Age-related Omics Exploration, leveraging multi-omics data (e.g., genomics, transcriptomics, proteomics) to uncover biological insights into aging processes. This repository provides the implementation of the AgingAOE-Net model, including scripts for data preprocessing, training, evaluation, and inference.
-Table of Contents
+# AgingAOE-Net
 
-Overview
-Features
-Installation
-Dataset
-Usage
-Preprocessing
-Training
-Evaluation
-Inference
+AgingAOE-Net is a deep learning framework for **Age-related Omics Exploration**, designed to analyze multi-omics data (e.g., genomics, transcriptomics, proteomics) to uncover aging-related biological insights. This repository provides the implementation, including scripts for data preprocessing, training, evaluation, and inference.
 
+## Table of Contents
 
-Model Architecture
-Contributing
-License
-Citation
-Contact
+- Overview
+- Features
+- Installation
+- Dataset
+- Usage
+  - Preprocessing
+  - Training
+  - Evaluation
+  - Inference
+- Model Architecture
+- Contributing
+- License
+- Citation
+- Contact
 
-Overview
-AgingAOE-Net is developed to integrate and analyze multi-omics data for studying aging mechanisms. The model employs advanced neural network architectures to identify aging-related biomarkers and patterns, with applications in biological research and personalized medicine. The repository includes code for model training, evaluation, and data preprocessing, as described in the associated research.
-Features
+## Overview
 
-Multi-omics Integration: Processes diverse omics data types for comprehensive analysis.
-Flexible Architecture: Supports customizable neural network configurations.
-Preprocessing Scripts: Tools to prepare raw omics data for model input.
-Training and Evaluation: Scripts for training the model and evaluating performance metrics.
-Inference: Predict age-related outcomes using pre-trained models.
+AgingAOE-Net integrates multi-omics data to study aging mechanisms, identifying biomarkers and patterns for applications in biological research and personalized medicine. The repository includes code for model training, evaluation, and data preprocessing, as described in the associated research.
 
-Installation
-To set up the environment for AgingAOE-Net:
+## Features
 
-Clone the repository:
-git clone https://github.com/FengAoWang/AgingAOE-Net.git
-cd AgingAOE-Net
+- **Multi-omics Integration**: Processes diverse omics data types.
+- **Flexible Architecture**: Customizable neural network configurations.
+- **Preprocessing Tools**: Scripts to format raw omics data.
+- **Training & Evaluation**: Supports training and performance metrics.
+- **Inference**: Predicts age-related outcomes with pre-trained models.
 
+## Installation
 
-Create a virtual environment (recommended):
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+1. **Clone the repository**:
 
+   ```bash
+   git clone https://github.com/FengAoWang/AgingAOE-Net.git
+   cd AgingAOE-Net
+   ```
 
-Install dependencies:
-pip install -r requirements.txt
+2. **Create a virtual environment** (recommended):
 
-The requirements.txt includes:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-Python 3.8+
-PyTorch
-NumPy
-Pandas
-Scikit-learn
-Other dependencies listed in the file
+3. **Install dependencies**:
 
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+   Requires:
 
-Dataset
-AgingAOE-Net requires multi-omics data in a structured format (e.g., CSV or TSV). The repository references datasets available on Zenodo.
+   - Python 3.8+
+   - PyTorch
+   - NumPy
+   - Pandas
+   - Scikit-learn
 
-Download data:
+## Dataset
 
-Download the datasets from Zenodo and place them in the data/ directory.
-Follow the structure outlined in data/sample_data/ for custom datasets.
+AgingAOE-Net uses multi-omics data in CSV/TSV format. Datasets are available on Zenodo.
 
+1. **Download data**:
 
-Preprocessing:Use the provided preprocessing script to format the data:
+   - Place datasets in the `data/` directory.
+   - Follow the structure in `data/sample_data/` for custom data.
+
+2. **Preprocessing**:
+
+   ```bash
+   python data/preprocess.py --input data/raw --output data/processed
+   ```
+
+## Usage
+
+### Preprocessing
+
+Format raw omics data:
+
+```bash
 python data/preprocess.py --input data/raw --output data/processed
+```
 
+### Training
 
+Train the model:
 
-Usage
-The repository provides scripts for preprocessing, training, evaluation, and inference. Below are the main workflows.
-Preprocessing
-Prepare raw omics data for model input:
-python data/preprocess.py --input data/raw --output data/processed
-
-
---input: Path to raw data directory
---output: Path to save processed data
-
-Training
-Train the AgingAOE-Net model:
+```bash
 python train.py --data_dir data/processed --output_dir outputs/ --epochs 50 --batch_size 32 --lr 0.001
+```
 
-Key arguments:
+- `--data_dir`: Processed data path
+- `--output_dir`: Save model checkpoints/logs
+- `--epochs`: Training epochs (default: 50)
+- `--batch_size`: Batch size (default: 32)
+- `--lr`: Learning rate (default: 0.001)
 
---data_dir: Path to processed data
---output_dir: Directory for model checkpoints and logs
---epochs: Number of training epochs (default: 50)
---batch_size: Batch size (default: 32)
---lr: Learning rate (default: 0.001)
+### Evaluation
 
-Evaluation
-Evaluate the trained model:
+Evaluate the model:
+
+```bash
 python evaluate.py --model_path outputs/model.pth --data_dir data/processed
+```
 
+Reports metrics like MSE, accuracy, or AUC.
 
---model_path: Path to trained model checkpoint
---data_dir: Path to processed data
+### Inference
 
-Metrics (e.g., MSE, accuracy, AUC) are reported based on the task.
-Inference
-Perform predictions using a pre-trained model:
+Predict with a pre-trained model:
+
+```bash
 python infer.py --model_path outputs/model.pth --input data/processed/sample.csv
+```
 
+## Model Architecture
 
---model_path: Path to trained model
---input: Path to input data file
+AgingAOE-Net features:
 
-Model Architecture
-AgingAOE-Net is a neural network tailored for multi-omics data, featuring:
+- **Input Layer**: Handles high-dimensional omics data.
+- **Encoder**: Extracts features via convolutional/transformer layers.
+- **Fusion Module**: Integrates multi-omics features.
+- **Prediction Head**: Outputs aging-related predictions.
 
-Input Layer: Handles high-dimensional omics inputs.
-Encoder: Extracts features using convolutional or transformer-based layers.
-Fusion Module: Integrates features across omics types.
-Prediction Head: Outputs aging-related predictions (e.g., age estimation, classification).
+Details in `docs/model_architecture.md`.
 
-For detailed architecture, refer to docs/model_architecture.md or the associated research paper.
-Contributing
-We welcome contributions! To contribute:
+## Contributing
 
-Fork the repository.
-Create a feature branch (git checkout -b feature-branch).
-Commit changes (git commit -m "Add feature").
-Push to the branch (git push origin feature-branch).
-Open a pull request.
+Contributions are welcome! To contribute:
 
-See CONTRIBUTING.md for guidelines.
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-Citation
-If you use AgingAOE-Net in your research, please cite the associated work:
+1. Fork the repository.
+2. Create a branch (`git checkout -b feature-branch`).
+3. Commit changes (`git commit -m "Add feature"`).
+4. Push (`git push origin feature-branch`).
+5. Open a pull request.
 
-[Placeholder for citation, as the repository does not specify a paper. Update with the correct citation if available.]
+See CONTRIBUTING.md.
 
-You can also reference the Zenodo dataset:
+## License
 
-Zenodo Dataset
+Licensed under the MIT License. See LICENSE.
 
-Contact
-For questions or support:
+## Citation
 
-Maintainer: Feng Ao Wang
-GitHub: FengAoWang
-Issues: Open an issue on GitHub
+Please cite the associated work if using AgingAOE-Net:
 
+> \[Update with citation when available\]
+
+Reference the dataset:
+
+> Zenodo Dataset
+
+## Contact
+
+- **Maintainer**: Feng Ao Wang
+- **GitHub**: FengAoWang
+- **Issues**: GitHub Issues
