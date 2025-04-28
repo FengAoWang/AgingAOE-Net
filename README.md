@@ -2,7 +2,7 @@
 
 AgingAOE-Net is a deep learning framework for **Age Order Enhanced Network**, designed to analyze multi-omics data (e.g., transcriptomics, DNA methylation) to uncover aging-related biological insights. This repository provides the implementation, including scripts for data preprocessing, training, evaluation, and downstream analysis.
 
-
+![AgingAOE-Net Overview](figure1.png)
 
 ## Table of Contents
 
